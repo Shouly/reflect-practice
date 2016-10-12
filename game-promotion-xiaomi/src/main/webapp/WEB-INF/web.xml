@@ -1,0 +1,32 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+	<display-name>XIAOMI Game Promotion</display-name>
+	
+	<!-- encode filter -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>com.gfan.game.promotion.filter.EncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoder</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- servlet -->
+	<servlet>
+		<servlet-name>showGameDataServlet</servlet-name>
+		<servlet-class>com.gfan.game.promotion.servlets.ShowGameDataServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>showGameDataServlet</servlet-name>
+		<url-pattern>/fetchGame</url-pattern>
+	</servlet-mapping>
+
+</web-app>
