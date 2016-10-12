@@ -40,7 +40,7 @@ public class ReflectService {
 	 * @return GameDataDisplayVO 实例
 	 * @version 1.0
 	 */
-	public static GameDataDisplayVO fieldMatchKeyOfMap(Map<String, Object> map,
+	public static GameDataDisplayVO setFieldValueThatMatchKeyOfMap(Map<String, Object> map,
 			Class<GameDataDisplayVO> clazz, GameDataDisplayVO vo) {
 
 		Method[] methods = clazz.getMethods();
