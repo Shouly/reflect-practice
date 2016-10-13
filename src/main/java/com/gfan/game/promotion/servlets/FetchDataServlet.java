@@ -8,6 +8,7 @@
 package com.gfan.game.promotion.servlets;
 
 import java.io.IOException;
+import java.io.OutputStream;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -21,13 +22,23 @@ import javax.servlet.http.HttpServletResponse;
  * @author liangbing
  * @version 1.0
  */
-public class ShowGameDataServlet extends HttpServlet {
+public class FetchDataServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 8933041492677262839L;
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		//渠道
 		String channel = req.getParameter("channel");
 		
+		if(channel == null || channel.equals("")){
+			
+		}
+		
+		//输出json 数据
+		OutputStream out = resp.getOutputStream();
+		out.write(new String("Hello World!").getBytes("UTF-8"));
+		out.flush();
+		out.close();
 	}
 }

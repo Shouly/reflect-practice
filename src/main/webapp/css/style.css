@@ -1,0 +1,131 @@
+@charset "utf-8";
+/*网页的全局样式 解决兼容问题*/
+body,div,p,ul,ol,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,table,tr,td,form,input,select,textarea,span,img,a,em,strong,*{ margin:0; padding:0;}
+body{ font-size:12px; color:#646464;}
+ul,ol,li{ list-style:none;}
+h1,h2,h3,h4,h5,h6{ font-size:14px;}
+input,select,textarea{ vertical-align:middle;}
+img{ border:none; vertical-align:middle;}
+a{ text-decoration:none; color:#787878;}
+button{-webkit-tap-highlight-color:rgba(0,0,0,0); border:none;outline:none;}
+.fl{float: left;}
+.fr{float:right;}
+.clearfix{ clear: both;}
+
+
+/*banner*/
+.banner{width: 100%;background: #f8f8f8 url("../images/bg.png") no-repeat center top;overflow: hidden;}
+.banner .b-main{width: 1260px;margin: 0 auto;position:relative;padding:67px 0;text-align: center}
+.banner .b-main>img{position: absolute;top: 67px;left:15px;}
+.banner .b-main .title{width: 712px;display: inline-block}
+.banner .b-main .title img{margin-top: 76px;width: 100%}
+.b-search{text-align: center;margin-top:60px}
+.search{display: inline-block;width:470px; ;padding: 10px 0;height: 26px;border: 1px solid #f8f8f8;line-height: 26px;}
+.search .btn-search{float:left;width: 52px;height: 26px;padding:0 15px;border-right: 1px solid #f8f8f8;background: none;cursor: pointer}
+.search .btn-search img{margin: 0;width: 100%}
+.search .b-text{width:400px;background: none;height: 26px;border: 0 none;font-size:22px;color: #f8f8f8;vertical-align: middle; line-height: 26px;}
+input[type=text]:focus{outline: 0;}
+.b-main p{text-align: center;font-size:18px;color: #ffffff;letter-spacing: 2px;word-spacing: 2px;margin-top: 48px;}
+.b-main p a{color: #ffba00;font-family: " Microsoft Yahei ", 微软雅黑, sans-serif;font-size: 18px;line-height: 26px;font-weight: 100}
+
+/*game*/
+.game{width: 100%;height:auto;background: #f8f8f8;overflow: hidden}
+.game .game-box{width: 1260px;height: auto;overflow: hidden;margin: 0 auto}
+.box{width: 80px;height: 176px;margin:20px 15px;overflow: hidden;float: left; padding: 14px 15px 11px;
+    -webkit-box-shadow:1px 1px 2px #9E9E9E;        /* 兼容webkit内核 */
+    -moz-box-shadow:1px 1px 2px #9E9E9E;          /* 兼容gecko内核 */
+    box-shadow:1px 1px 2px #9E9E9E;                    /* 标准用法 */   }
+.box img{width: 80px;height: 80px;-moz-border-radius: 10px; /* Firefox */
+    -webkit-border-radius: 10px; /* Safari 和 Chrome */
+    border-radius: 10px; /* Opera 10.5+, 以及使用了IE-CSS3的IE浏览器 */overflow: hidden }
+.box span{color: #161616;font-size: 13px;height: 28px;overflow: hidden;width: 100%;text-align: center;line-height: 28px;display: block;font-weight: 600}
+.box p{color:#848484;font-size: 11px;width: 100%;text-align: center;overflow: hidden;height: 20px;line-height: 20px;font-family: " Microsoft Yahei ", 微软雅黑, sans-serif }
+/*.box p a{display: inline-block;overflow: hidden;text-overflow: ellipsis;width: 36px;height: 20px;line-height: 20px;}*/
+.box p a.ml-4{margin-left: 4px;}
+.box .down{font-weight: 600;margin-top: 4px;color:#000000;font-size: 13px;width:100%;text-align: center;overflow: hidden;border: 1px solid #848484;-moz-border-radius: 10px; /* Firefox */
+    -webkit-border-radius: 10px; /* Safari 和 Chrome */
+    border-radius: 10px; /* Opera 10.5+, 以及使用了IE-CSS3的IE浏览器 */height:23px;line-height: 23px;display: block }
+.box .down:active{background:url("../images/back.png") no-repeat;color: #FFFFFF }
+.page{text-align: center;}
+.page-main{height:26px;line-height: 26px; padding: 75px 0 54px 0;font-family: " Microsoft Yahei ", 微软雅黑, sans-serif}
+.page-main a{height:26px;line-height: 26px;padding: 7px 10px;color: #000000;font-size: 12px;text-align: center;border: 1px solid #959595;margin-right:10px;margin-left: 10px; }
+.page-main a.cur{color: #FFFFFF;background: #2855a5;border: 1px solid #2855a5}
+.page-main a:active{color: #FFFFFF;background: #2855a5;border: 1px solid #2855a5}
+.goup{text-align: center;padding:10px 0 50px 0; }
+.goup .img{width:70px;height: 70px;overflow: hidden;cursor: pointer }
+
+
+@media screen and (max-width: 1260px){
+    .banner .b-main{width: 100%;}
+    .game .game-box{width: 100%}
+    .banner .b-main>img{top:20px;}
+    .banner .b-main{padding:17px 0 120px;}
+    .box{margin:20px 20px }
+    .banner .b-main img:nth-child(2){margin-top: 100px;}
+    .banner .b-main .title{width:550px;display: inline-block}
+}
+@media screen and (max-width: 1200px){
+    .box{margin:20px 26px }
+    .banner .b-main img:nth-child(2){margin-top: 100px;}
+}
+@media screen and (max-width: 980px) {
+    .box {margin: 20px 25px}
+    .banner .b-main>img{width: 50px;top:30px}
+    .search{width: 430px;}
+    .search .b-text{width: 360px;font-size: 20px;}
+    .search .btn-search {width: 42px; padding: 0 10px;}
+}
+@media screen and (max-width: 768px){
+    .banner .b-main {padding: 17px 0 70px;}
+    .box{margin:20px 20px }
+    .banner .b-main>img{width: 50px;}
+}
+@media screen and (max-width: 415px){
+    .banner .b-main {padding: 17px 0 30px;}
+    .box{margin:20px 13px }
+    .banner .b-main>img{width: 38px;}
+    .banner .b-main .title{width:350px;}
+    .search{width: 305px;padding: 5px 0}
+    .search .b-text{width: 245px;font-size:16px;}
+    .b-search{margin-top: 40px;}
+    .search .btn-search {width: 36px; padding: 0 8px;}
+    .banner .b-main .title img {margin-top: 60px;}
+    .b-main p{margin-top: 32px;font-size: 14px;}
+    .b-main p a{font-size: 14px;}
+    .page-main{padding: 40px 0 40px 0;}
+    .page-main a{margin-left: 1px;margin-right: 1px;}
+}
+@media screen and (max-width:410px){
+    .box{margin:20px 10px }
+}
+@media screen and (max-width: 385px){
+    .box{margin:20px 9px }
+}
+@media screen and (max-width: 376px){
+    .banner .b-main {padding: 17px 0 30px;}
+    .box{margin:20px 5px }
+}
+
+@media screen and (max-width: 320px){
+    .banner .b-main {padding: 17px 0 30px;}
+    .box{margin:20px 24px }
+    .banner .b-main>img{width: 30px;}
+    .banner .b-main .title{width:290px;}
+    .search{width: 264px;padding: 5px 0}
+    .search .b-text{width: 216px;font-size:14px;}
+    .b-search{margin-top: 32px;}
+    .search .btn-search {width: 32px; padding: 0 6px;}
+    .banner .b-main .title img {margin-top: 60px;}
+    .b-main p{margin-top: 22px;font-size: 14px;}
+    .b-main p a{font-size: 14px;}
+    .page-main{padding: 40px 0 40px 0;}
+    .page-main a{margin-left: 0;margin-right: 0;padding: 5px 5px}
+}
+
+
+
+
+
+
+
+

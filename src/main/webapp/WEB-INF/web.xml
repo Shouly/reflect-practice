@@ -19,14 +19,24 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-	<!-- servlet -->
+	<!-- servlet fetchData -->
 	<servlet>
 		<servlet-name>showGameDataServlet</servlet-name>
-		<servlet-class>com.gfan.game.promotion.servlets.ShowGameDataServlet</servlet-class>
+		<servlet-class>com.gfan.game.promotion.servlets.FetchDataServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>showGameDataServlet</servlet-name>
-		<url-pattern>/fetchGame</url-pattern>
+		<url-pattern>/fetchData</url-pattern>
 	</servlet-mapping>
-
+	
+	<!-- servelt dispatcher -->
+	<servlet>
+		<servlet-name>dispatcherServlet</servlet-name>
+		<servlet-class>com.gfan.game.promotion.servlets.DispatcherServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>dispatcherServlet</servlet-name>
+		<url-pattern>/promotion.html</url-pattern>
+	</servlet-mapping>
+	
 </web-app>
