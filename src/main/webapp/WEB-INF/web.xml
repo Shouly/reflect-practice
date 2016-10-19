@@ -5,6 +5,15 @@
 <web-app>
 	<display-name>XIAOMI Game Promotion</display-name>
 	
+	<context-param>
+		<param-name>classNameContainsSingletonInitAnnotation</param-name>
+		<param-value>
+			com.gfan.game.promotion.service.QueryDataService,
+			com.gfan.game.promotion.service.ModifyDataService
+		</param-value>
+		<description>this classes(only xxService) need to processor SingletonInit annotation</description>
+	</context-param>
+	
 	<!-- encode filter -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
@@ -31,7 +40,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>showGameDataServlet</servlet-name>
-		<url-pattern>/fetchData</url-pattern>
+		<url-pattern>/fetchData.html</url-pattern>
 	</servlet-mapping>
 	
 	<!-- servelt dispatcher -->

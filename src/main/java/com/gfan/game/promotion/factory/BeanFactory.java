@@ -56,4 +56,20 @@ public class BeanFactory {
 		return obj;
 	}
 	
+	/**
+	 * 获取给定classname的单例实例
+	 * @param className
+	 * @return
+	 * @version 1.0
+	 */
+	public static Object getInstance(String className){
+		Object obj = null;
+		try {
+			obj = getInstance(Class.forName(className));
+		} catch (ClassNotFoundException e) {
+			//do nothing...
+			logger.error("this param className invalid! class not found.",e);
+		}
+		return obj;
+	}
 }

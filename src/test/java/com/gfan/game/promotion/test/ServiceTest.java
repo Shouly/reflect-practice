@@ -29,7 +29,6 @@ public class ServiceTest {
 	public void test(){
 		List<Map<String, Object>> list = FetchDataService.fetchGameData();
 		for(Map<String, Object> l:list){
-			System.out.println(ReflectService.setFieldValueThatMatchKeyOfMap(l, GameDataDisplayVO.class, new GameDataDisplayVO()));
 		}
 	}
 }

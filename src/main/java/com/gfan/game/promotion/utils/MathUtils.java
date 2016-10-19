@@ -28,4 +28,8 @@ public class MathUtils {
 		return new BigDecimal(source).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
 	}
 	
+	public static float left2Decimals2Float(double source){
+		return new BigDecimal(source).setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
+	}
+	
 }

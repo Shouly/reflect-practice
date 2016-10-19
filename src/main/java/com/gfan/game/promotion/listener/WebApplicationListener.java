@@ -19,7 +19,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import com.gfan.game.promotion.annotation.AnnotationHandler;
 import com.gfan.game.promotion.common.Constants;
 import com.gfan.game.promotion.factory.BeanFactory;
-import com.gfan.game.promotion.service.BaseService;
+import com.gfan.game.promotion.utils.StringUtils;
 
 /** 
  * Description: TODO<br>
@@ -31,26 +31,11 @@ import com.gfan.game.promotion.service.BaseService;
 public class WebApplicationListener implements ServletContextListener{
 
 	/* 
-	 * 初始化mybatis的配置
-	 * 
 	 * @see javax.servlet.ServletContextListener#contextInitialized(javax.servlet.ServletContextEvent)
 	 */
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
-		ServletContext servletContext = sce.getServletContext();
-		//构建 mybatis SqlSessionFactory
-		servletContext.log("Initializing Mybatis SqlSessionFactory instance.");
-		InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(Constants.MYBATIS_CONFIG_PATH);
-		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(in);
-		
-		BaseService baseService = (BaseService)AnnotationHandler
-				.singletonInitAnnotationProcessor(BaseService.class, BeanFactory.getInstance(BaseService.class), sqlSessionFactory);
-		
-		
-		//servletContext 中存放 mybatis sqlSessionFactory
-		//servletContext.setAttribute(Constants.MYBATIS_SQLSESSIONFACTORY_NAME_IN_SERVLET_CONTEXT, sqlSessionFactory);
-		
-		servletContext.log("Init Mybatis SqlSessionFactory instance success!");
+		initWebApplication(sce);
 	}
 
 	/* (non-Javadoc)
@@ -58,14 +43,42 @@ public class WebApplicationListener implements ServletContextListener{
 	 */
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
-		ServletContext servletContext = sce.getServletContext();
-		servletContext.log("Destoring Mybatis SqlSessionFactory instance.");
-		SqlSessionFactory sqlSessionFactory = (SqlSessionFactory)servletContext
-				.getAttribute(Constants.MYBATIS_SQLSESSIONFACTORY_NAME_IN_SERVLET_CONTEXT); 
-		if(sqlSessionFactory != null){
-			servletContext.removeAttribute(Constants.MYBATIS_SQLSESSIONFACTORY_NAME_IN_SERVLET_CONTEXT);
-		}
-		servletContext.log("Destoried Mybatis SqlSessionFactory instance.");
+		
 	}
 
+	/**
+	 * 初始化webapplication
+	 * 1.初始化mybatis SqlSessionFactory
+	 * 2.初始化带有\@SingletonInit注解的Service类的SqlSessionFactory属性
+	 * 
+	 */
+	private void initWebApplication(ServletContextEvent sce){
+		ServletContext servletContext = sce.getServletContext();
+		
+		//1.初始化 mybatis SqlSessionFactory
+		servletContext.log("Initializing Mybatis SqlSessionFactory instance.");
+		InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(Constants.MYBATIS_CONFIG_PATH);
+		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(in);
+		
+		//2.初始化带有@SingletonInit注解Service类的属性
+		String classNameArray = servletContext.getInitParameter("classNameContainsSingletonInitAnnotation");
+		//处理字符串中的blank自符
+		classNameArray = StringUtils.replaceBlank(classNameArray);
+		
+		String[] nameArray = classNameArray.split(",");
+		
+		for(String name:nameArray){
+			servletContext.log("Initializing ["+name+"] field contains @SingletonInit.");
+			//获取实例
+			Object obj = BeanFactory.getInstance(name);
+			Class<?> clazz = null;
+			try {
+				clazz = Class.forName(name);
+			} catch (ClassNotFoundException e) {
+				servletContext.log("Init ["+name+"] field contains @SingletonInit error, invalid className class not found.");
+			}
+			AnnotationHandler.singletonInitAnnotationProcessor(clazz, obj, sqlSessionFactory);
+		}
+		
+	}
 }
