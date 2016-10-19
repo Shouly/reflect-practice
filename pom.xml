@@ -92,5 +92,25 @@
   
   <build>
     <finalName>gf-game-promotion-xiaomi</finalName>
+    <plugins>
+    	<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-dependency-plugin</artifactId>
+			<executions>
+				<execution>
+					<id>copy-dependencies</id>
+					<phase>package</phase>
+					<goals>
+						<goal>copy-dependencies</goal>
+					</goals>
+					<configuration>
+						<outputDirectory>src/main/webapp/WEB-INF/lib</outputDirectory>
+						<excludeTransitive>false</excludeTransitive>
+						<stripVersion>false</stripVersion>
+					</configuration>
+				</execution>
+			</executions>
+		</plugin>
+    </plugins>
   </build>
 </project>

@@ -30,7 +30,6 @@ public class FetchDataServlet extends HttpServlet {
 			throws ServletException, IOException {
 		//渠道
 		String channel = req.getParameter("channel");
-		
 		if(channel == null || channel.equals("")){
 			
 		}

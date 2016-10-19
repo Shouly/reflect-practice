@@ -30,6 +30,10 @@ public class Constants {
 	public static String URL_DOWNLOAD_GAME_PREFIX;
 	public static int FETCH_DATA_SIZE;
 	
+	//mybatis config
+	public static final String MYBATIS_SQLSESSIONFACTORY_NAME_IN_SERVLET_CONTEXT = "sqlSessionFactory"; 
+	public static final String MYBATIS_CONFIG_PATH = "mybatis/mybatis-config.xml";
+	
 	//load properties and init fields values
 	static {
 		
