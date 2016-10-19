@@ -15,14 +15,25 @@ import javax.servlet.ServletContextListener;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.quartz.CronScheduleBuilder;
+import org.quartz.JobBuilder;
+import org.quartz.JobDetail;
+import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
+import org.quartz.Trigger;
+import org.quartz.TriggerBuilder;
+import org.quartz.impl.StdSchedulerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.gfan.game.promotion.annotation.AnnotationHandler;
 import com.gfan.game.promotion.common.Constants;
 import com.gfan.game.promotion.factory.BeanFactory;
+import com.gfan.game.promotion.quertz.FetchDataJob;
 import com.gfan.game.promotion.utils.StringUtils;
 
 /** 
- * Description: init WebApplication<br>
+ * Description: WebApplication Listener<br>
  * Create Date: 2016年10月18日 下午2:23:35
  * 
  * @author liangbing 
@@ -30,6 +41,10 @@ import com.gfan.game.promotion.utils.StringUtils;
  */
 public class WebApplicationListener implements ServletContextListener{
 
+	private Logger logger = LoggerFactory.getLogger(WebApplicationListener.class);
+	
+	private Scheduler scheduler = null;
+	
 	/* 
 	 * @see javax.servlet.ServletContextListener#contextInitialized(javax.servlet.ServletContextEvent)
 	 */
@@ -43,14 +58,21 @@ public class WebApplicationListener implements ServletContextListener{
 	 */
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
-		
+		//关闭quartz scheduler
+		if(scheduler != null){
+			try {
+				scheduler.shutdown();
+			} catch (SchedulerException e) {
+				logger.error("Scheduler shutdown failed.",e);
+			}
+		}
 	}
 
 	/**
 	 * 初始化webapplication
 	 * 1.初始化mybatis SqlSessionFactory
-	 * 2.初始化带有\@SingletonInit注解的Service类的SqlSessionFactory属性
-	 * 
+	 * 2.初始化带有@SingletonInit注解的Service类的SqlSessionFactory属性
+	 * 3.注册定时任务
 	 */
 	private void initWebApplication(ServletContextEvent sce){
 		ServletContext servletContext = sce.getServletContext();
@@ -78,6 +100,22 @@ public class WebApplicationListener implements ServletContextListener{
 				servletContext.log("Init ["+name+"] field contains @SingletonInit error, invalid className class not found.");
 			}
 			AnnotationHandler.singletonInitAnnotationProcessor(clazz, obj, sqlSessionFactory);
+		}
+		
+		//3.注册定时任务
+		servletContext.log("Registring quertz scheduler.");
+		try {
+			scheduler = StdSchedulerFactory.getDefaultScheduler();
+		} catch (SchedulerException e) {
+			servletContext.log("Registy quertz scheduler failed.");
+		}
+		JobDetail jobDetail = JobBuilder.newJob(FetchDataJob.class).withIdentity("fetchDataJob", "groupOne").build();
+		CronScheduleBuilder cronScheduleBuilder = CronScheduleBuilder.cronSchedule(Constants.CRON_SCHEDULER);
+		Trigger trigger = TriggerBuilder.newTrigger().withIdentity("triggerOne").withSchedule(cronScheduleBuilder).build();
+		try {
+			scheduler.scheduleJob(jobDetail, trigger);
+		} catch (SchedulerException e) {
+			logger.error("Scheduler scheduleJob failed.",e);
 		}
 		
 	}

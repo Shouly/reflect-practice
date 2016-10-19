@@ -57,7 +57,7 @@ public class BeanFactory {
 	}
 	
 	/**
-	 * 获取给定classname的单例实例
+	 * 获取给定class name的单例实例
 	 * @param className
 	 * @return
 	 * @version 1.0

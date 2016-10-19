@@ -10,7 +10,7 @@ package com.gfan.game.promotion.utils;
 import java.math.BigDecimal;
 
 /** 
- * Description: TODO<br>
+ * Description: Math Utils<br>
  * Create Date: 2016年10月12日 下午1:55:57
  * 
  * @author liangbing 
@@ -32,4 +32,7 @@ public class MathUtils {
 		return new BigDecimal(source).setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
 	}
 	
+	public static double left2Decimals(float source){
+		return new BigDecimal(source).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+	}
 }

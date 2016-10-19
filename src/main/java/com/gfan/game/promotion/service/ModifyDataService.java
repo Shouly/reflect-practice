@@ -84,7 +84,7 @@ public class ModifyDataService {
 	private GameDataPo gameDataDisplayVOTogameDataPo(GameDataDisplayVO vo){
 		GameDataPo po = new GameDataPo();
 		
-		//apk size 转为M
+		//apk size 单位byte转为M
 		po.setApksize(MathUtils.left2Decimals2Float(vo.getApkSize()/1024/1024));
 		
 		po.setApkUrl(vo.getGameApk());
@@ -93,6 +93,7 @@ public class ModifyDataService {
 		po.setGameName(vo.getDisplayName());
 		po.setIconUrl(vo.getIcon());
 		po.setUpdateTime(new Date());
+		po.setVersionName(vo.getVersionName());
 		
 		return po;
 	}

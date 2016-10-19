@@ -26,8 +26,21 @@ public class GameDataDisplayVO implements Serializable{
 	private String gameApk;//游戏APK安装文件下载地址,根据不同渠道拼接
 	private int appId;//小米平台id
 	private double apkSize;//游戏APK安装文件大小，单位Mb
+	private String versionName;//当前版本号
 	
 	
+	/**
+	 * @return the versionName
+	 */
+	public String getVersionName() {
+		return versionName;
+	}
+	/**
+	 * @param versionName the versionName to set
+	 */
+	public void setVersionName(String versionName) {
+		this.versionName = versionName;
+	}
 	/**
 	 * @return the displayName
 	 */
@@ -108,8 +121,9 @@ public class GameDataDisplayVO implements Serializable{
 	@Override
 	public String toString() {
 		return "GameDataDisplayVO [displayName=" + displayName + ", className="
-				+ className + ", appId=" + appId + ", icon=" + icon
-				+ ", apkSize=" + apkSize + ", gameApk=" + gameApk + "]";
+				+ className + ", icon=" + icon + ", gameApk=" + gameApk
+				+ ", appId=" + appId + ", apkSize=" + apkSize
+				+ ", versionName=" + versionName + "]";
 	}
 	
 }

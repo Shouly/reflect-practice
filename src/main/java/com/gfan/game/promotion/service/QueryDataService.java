@@ -21,6 +21,7 @@ import com.gfan.game.promotion.common.Constants;
 import com.gfan.game.promotion.dao.GameDataPoMapper;
 import com.gfan.game.promotion.entity.po.GameDataPo;
 import com.gfan.game.promotion.entity.vo.GameDataDisplayVO;
+import com.gfan.game.promotion.utils.MathUtils;
 
 /** 
  * Description: query data from db<br>
@@ -61,12 +62,13 @@ public class QueryDataService{
 		SqlSession session = sqlSessionFactory.openSession(ExecutorType.REUSE);
 		GameDataPoMapper mapper = session.getMapper(GameDataPoMapper.class);
 		int count = mapper.countById();
+		
 		session.close();
 		return count;
 	}
 	
 	/**
-	 * 根据页面数获取limit startLine
+	 * 根据页数获取limit startLine
 	 * @param currentPage
 	 * @return
 	 * @version 1.0
@@ -86,12 +88,13 @@ public class QueryDataService{
 				
 				GameDataDisplayVO vo = new GameDataDisplayVO();
 				
-				vo.setApkSize(po.getApksize());
+				vo.setApkSize(MathUtils.left2Decimals(po.getApksize()));
 				vo.setAppId(po.getAppid());
 				vo.setClassName(po.getClassName());
 				vo.setDisplayName(po.getGameName());
 				vo.setGameApk(po.getApkUrl());
 				vo.setIcon(po.getIconUrl());
+				vo.setVersionName(po.getVersionName());
 				
 				voList.add(vo);
 			}

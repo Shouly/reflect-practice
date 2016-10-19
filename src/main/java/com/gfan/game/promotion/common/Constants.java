@@ -35,6 +35,9 @@ public class Constants {
 	public static final String MYBATIS_CONFIG_PATH = "mybatis/mybatis-config.xml";
 	public static int PAGE_SIZE = 45;
 	
+	//querzt
+	public static String CRON_SCHEDULER = "";
+	
 	//load properties and init fields values
 	static {
 		
@@ -68,6 +71,10 @@ public class Constants {
 			
 			if(key.equals("PAGE_SIZE")){
 				PAGE_SIZE = Integer.parseInt(properties.get(key).toString());
+			}
+			
+			if(key.equals("CRON_SCHEDULER")){
+				CRON_SCHEDULER = properties.get(key).toString();
 			}
 		}
 	}
