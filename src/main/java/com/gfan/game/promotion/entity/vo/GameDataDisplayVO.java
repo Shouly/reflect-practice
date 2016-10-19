@@ -7,6 +7,8 @@
  */
 package com.gfan.game.promotion.entity.vo;
 
+import java.io.Serializable;
+
 /** 
  * Description: TODO<br>
  * Create Date: 2016年10月9日 上午11:45:09
@@ -14,8 +16,10 @@ package com.gfan.game.promotion.entity.vo;
  * @author liangbing 
  * @version 1.0 
  */
-public class GameDataDisplayVO {
+public class GameDataDisplayVO implements Serializable{
 
+	private static final long serialVersionUID = 1758612228187147660L;
+	
 	private String displayName;//游戏名称
 	private String className;//所属小类名称
 	private String icon;//图标url

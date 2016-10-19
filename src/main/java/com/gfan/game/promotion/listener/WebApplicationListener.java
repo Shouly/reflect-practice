@@ -22,7 +22,7 @@ import com.gfan.game.promotion.factory.BeanFactory;
 import com.gfan.game.promotion.utils.StringUtils;
 
 /** 
- * Description: TODO<br>
+ * Description: init WebApplication<br>
  * Create Date: 2016年10月18日 下午2:23:35
  * 
  * @author liangbing 

@@ -33,6 +33,7 @@ public class Constants {
 	//mybatis config
 	public static final String MYBATIS_SQLSESSIONFACTORY_NAME_IN_SERVLET_CONTEXT = "sqlSessionFactory"; 
 	public static final String MYBATIS_CONFIG_PATH = "mybatis/mybatis-config.xml";
+	public static int PAGE_SIZE = 45;
 	
 	//load properties and init fields values
 	static {
@@ -61,8 +62,12 @@ public class Constants {
 				URL_DOWNLOAD_GAME_PREFIX = properties.get(key).toString();
 			}
 			
-			if(key.equals("PAGE_SIZE")){
+			if(key.equals("FETCH_DATA_SIZE")){
 				FETCH_DATA_SIZE = Integer.parseInt(properties.get(key).toString());
+			}
+			
+			if(key.equals("PAGE_SIZE")){
+				PAGE_SIZE = Integer.parseInt(properties.get(key).toString());
 			}
 		}
 	}

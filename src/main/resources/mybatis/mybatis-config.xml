@@ -68,5 +68,6 @@
 	</environments>
 	<mappers>
 		<mapper resource="mybatis/mapper/GameDataPoMapper.xml" />
+		<mapper resource="mybatis/mapper/ChannelPOMapper.xml" />
 	</mappers>
 </configuration>

@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%
 	String contextPath = request.getContextPath();
-	String channel = request.getParameter("channel");
+	String channel = request.getParameter("channelId");
 %>
 <!DOCTYPE html>
 <html>

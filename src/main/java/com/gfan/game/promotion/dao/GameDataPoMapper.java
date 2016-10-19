@@ -10,4 +10,5 @@ public interface GameDataPoMapper {
 	
 	int insertOrUpdateBatch(List<GameDataPo> list);
 	
+	List<GameDataPo> selectDataByPaging(int startLine,int pageSize);
 }

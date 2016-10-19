@@ -9,9 +9,10 @@
 		<param-name>classNameContainsSingletonInitAnnotation</param-name>
 		<param-value>
 			com.gfan.game.promotion.service.QueryDataService,
-			com.gfan.game.promotion.service.ModifyDataService
+			com.gfan.game.promotion.service.ModifyDataService,
+			com.gfan.game.promotion.service.ChannelService
 		</param-value>
-		<description>this classes(only xxService) need to processor SingletonInit annotation</description>
+		<description>this classes(only xxService) need to process SingletonInit annotation</description>
 	</context-param>
 	
 	<!-- encode filter -->

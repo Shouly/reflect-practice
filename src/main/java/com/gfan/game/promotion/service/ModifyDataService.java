@@ -55,13 +55,22 @@ public class ModifyDataService {
 		}
 		
 		//db 
-		SqlSession session = sessionFactory.openSession();
-		GameDataPoMapper mapper = session.getMapper(GameDataPoMapper.class);
-		int i = mapper.insertOrUpdateBatch(poList);
-		session.commit();
-		session.close();
-		
-		logger.info("db updated suceess:"+i);
+		SqlSession session = null;
+		int i = 0;
+		try {
+			session = sessionFactory.openSession();
+			GameDataPoMapper mapper = session.getMapper(GameDataPoMapper.class);
+			i = mapper.insertOrUpdateBatch(poList);
+			
+			logger.info("db updated suceess:"+i);
+			
+			session.commit();
+			
+		} catch (Exception e) {
+			logger.error("DB insertOrUpdateBatch failed!",e);
+		}finally{
+			session.close();
+		}
 		
 		long e = System.currentTimeMillis();
 		

@@ -42,7 +42,7 @@
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
-		<table tableName="game_data_xiaomi" domainObjectName="GameDataPo"
+		<table tableName="game_data_channel_xiaomi" domainObjectName="ChannelPO"
 		enableCountByExample="true" enableUpdateByExample="false"
 		enableDeleteByExample="false" enableSelectByExample="true"
 		selectByExampleQueryId="false" ></table>
