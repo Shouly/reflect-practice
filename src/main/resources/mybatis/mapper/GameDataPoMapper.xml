@@ -40,12 +40,12 @@
     select 
     <include refid="Base_Column_List" />
     from game_data_xiaomi
-    where game_name like '%'#{0}'%' escape '\\' limit #{1},#{2}
+    where game_name like #{0} escape '\\' limit #{1},#{2}
   </select>
   
-  <select id="countBySearchContent" resultMap="java.lang.Integer" parameterType="java.lang.String" >
+  <select id="countBySearchContent" resultType="java.lang.Integer" parameterType="java.lang.String" >
     select count(id) from game_data_xiaomi 
-    where game_name like '%'#{0}'%' escape '\\'
+    where game_name like #{0} escape '\\'
   </select>
   
   <select id="selectDataByPaging" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

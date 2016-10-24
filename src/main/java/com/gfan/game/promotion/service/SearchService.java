@@ -18,6 +18,7 @@ import com.gfan.game.promotion.dao.GameDataPoMapper;
 import com.gfan.game.promotion.entity.po.GameDataPo;
 import com.gfan.game.promotion.entity.vo.GameDataVO;
 import com.gfan.game.promotion.entity.vo.PageBean;
+import com.gfan.game.promotion.utils.StringUtils;
 
 /** 
  * Description: TODO<br>
@@ -35,7 +36,8 @@ public class SearchService {
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		GameDataPoMapper mapper = sqlSession.getMapper(GameDataPoMapper.class);
-		List<GameDataPo> poList = mapper.selectBySearchContent(searchContent,PageBean.getOffsetAccordCurrentPage(pageNo), Constants.PAGE_SIZE);
+		List<GameDataPo> poList = mapper.selectBySearchContent(processSearchContent(searchContent)
+				,PageBean.getOffsetAccordCurrentPage(pageNo), Constants.PAGE_SIZE);
 		sqlSession.close();
 		
 		return EntityService.gameDataPoToGameDataVO(poList);
@@ -44,9 +46,29 @@ public class SearchService {
 	public int countBySearchContent(String searchContent){
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		GameDataPoMapper mapper = sqlSession.getMapper(GameDataPoMapper.class);
-		int count = mapper.countBySearchContent(searchContent);
+		int count = mapper.countBySearchContent(processSearchContent(searchContent));
 		sqlSession.close();
 		
 		return count;
+	}
+	
+	/**
+	 * 处理搜索字符串
+	 * @param parm
+	 * @return
+	 * @version 1.0
+	 */
+	public String processSearchContent(String parm){
+		String temp = "";
+		if(!StringUtils.isBlank(parm)){
+			for (int i = 0; i < parm.length(); i++) {  
+	            if (parm.charAt(i) == '%' || parm.charAt(i) == '_') {  
+	                temp += "\\" + parm.charAt(i);  
+	            } else {  
+	                temp += parm.charAt(i);  
+	            }  
+	        }
+		}
+		return "%" + temp + "%";
 	}
 }

@@ -77,11 +77,13 @@ public class FetchDataServlet extends HttpServlet {
 		}
 		
 		//channel参数为空时，取一级渠道
+		ChannelPO po = null;
 		if(StringUtils.isBlank(channelId)){
-			channelId = channelService.getChannelPOByChannelLevel(ChannelLevelEnum.CHANNEL_FIR_CLASS.getLevel()).getChannelId();
+			po = channelService.getChannelPOByChannelLevel(ChannelLevelEnum.CHANNEL_FIR_CLASS.getLevel());
+		}else{
+			//channel参数不为空时，查询渠道信息
+			po = channelService.getChannelPOByChannelId(channelId);
 		}
-		//channel参数不为空时，判断是否存在该渠道
-		ChannelPO po = channelService.getChannelPOByChannelId(channelId);
 		//请求的渠道不存在
 		if(po == null){
 			responseVO.setCode(ResponseEnum.CHANNEL_NOT_EXITS.getCode());
@@ -91,6 +93,8 @@ public class FetchDataServlet extends HttpServlet {
 			out.flush();
 			out.close();
 			return;
+		}else {
+			channelId = po.getChannelId();
 		}
 		
 		//渠道存在，拼接渠道的下载参数
@@ -98,6 +102,7 @@ public class FetchDataServlet extends HttpServlet {
 		List<GameDataVO> voList = null;
 		//数据总数
 		int totalCount = 0; 
+		
 		//搜索 case
 		if(!StringUtils.isBlank(searchContent)){
 			//数据为搜索数据
@@ -107,6 +112,7 @@ public class FetchDataServlet extends HttpServlet {
 			voList = queryDataService.queryGameDataByPaging(pageNo);
 			totalCount = queryDataService.countAllData();
 		}
+		
 		//拼接下载url为渠道的下载地址,
 		if(voList != null && voList.size() > 0){
 			for(GameDataVO vo:voList){
