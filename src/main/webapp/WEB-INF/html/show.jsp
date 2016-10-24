@@ -28,11 +28,11 @@
             </div>
             <div class="b-search">
                 <div class="search">
-                    <button type="button" class="btn-search"><img src=" <%=contextPath %>/images/search.png" alt=""></button>
-                    <input type="text" placeholder="皇室战争" class="b-text yy">
+                    <button type="button" class="btn-search"><img src=" <%=contextPath %>/images/search.png" alt="" onclick="searchData();"></button>
+                    <input id="searchInput" type="text" placeholder="皇室战争" class="b-text yy" onkeydown="javascript:if(event.keyCode==13) searchData();">
                 </div>
             </div>
-            <p>共<a href="javascript:void(0);">123456</a>款游戏</p>
+            <p>共<a id="count" href="javascript:void(0);"></a>款游戏</p>
         </div>
     </div>
     <!-- 渠道标示 -->
@@ -49,32 +49,12 @@
     %>
     
     <div class="game">
-    <div id="dataWrapper" class="game-box clearfix">
-        <div class="box">
-            <img src="<%=contextPath %>/images/icon.png" alt="">
-            <span>皇室战争</span>
-            <p><a href="javascript:void(0)">策略</a><a href="javascript:void(0)" class="ml-4">100.6M</a></p>
-            <p>当前版本：<a href="javascript:void(0)">4.5</a></p>
-            <a href="javascript:void(0);" target="_blank" class="down">立即下载</a>
-        </div>
-        
-        <!-- 分页 -->
-        <div class="page clearfix">
-            <div class="page-main">
-                <a href="javascript:void(0)">首&nbsp;&nbsp;&nbsp;页</a>
-                <a href="javascript:void(0)" class="cur">上一页</a>
-                <a href="javascript:void(0)">01</a>
-                ......
-                <a href="javascript:void(0)">83</a>
-                <a href="javascript:void(0)">下一页</a>
-                <a href="javascript:void(0)">尾&nbsp;&nbsp;&nbsp;页</a>
-            </div>
-        </div>
-    </div>
-    <div class="goup">
-        <img src="<%=contextPath %>/images/go.png" class="goups">
-    </div>
-</div>
+    	<div id="dataWrapper" class="game-box clearfix">
+    	</div>
+    	<div class="goup">
+        	<img src="<%=contextPath %>/images/go.png" class="goups">
+    	</div>
+	</div>
 <script type="text/javascript" src=" <%=contextPath %>/js/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src=" <%=contextPath %>/js/app.js"></script>
 <script type="text/javascript">

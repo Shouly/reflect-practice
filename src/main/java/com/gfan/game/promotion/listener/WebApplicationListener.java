@@ -58,6 +58,7 @@ public class WebApplicationListener implements ServletContextListener{
 	 */
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
+		 sce.getServletContext().log("Destroy Webapplication ...");
 		//关闭quartz scheduler
 		if(scheduler != null){
 			try {
@@ -106,6 +107,7 @@ public class WebApplicationListener implements ServletContextListener{
 		servletContext.log("Registring quertz scheduler.");
 		try {
 			scheduler = StdSchedulerFactory.getDefaultScheduler();
+			scheduler.start();
 		} catch (SchedulerException e) {
 			servletContext.log("Registy quertz scheduler failed.");
 		}

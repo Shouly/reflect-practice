@@ -40,8 +40,17 @@ input[type=text]:focus{outline: 0;}
     border-radius: 10px; /* Opera 10.5+, 以及使用了IE-CSS3的IE浏览器 */overflow: hidden }
 .box span{color: #161616;font-size: 13px;height: 28px;overflow: hidden;width: 100%;text-align: center;line-height: 28px;display: block;font-weight: 600}
 .box p{color:#848484;font-size: 11px;width: 100%;text-align: center;overflow: hidden;height: 20px;line-height: 20px;font-family: " Microsoft Yahei ", 微软雅黑, sans-serif }
-/*.box p a{display: inline-block;overflow: hidden;text-overflow: ellipsis;width: 36px;height: 20px;line-height: 20px;}*/
-.box p a.ml-4{margin-left: 4px;}
+.box p a.text{display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 28px;
+    height: 20px;
+    line-height: 20px;}
+.box p a.ml-4{float: right;
+    width: 50px;
+    overflow: hidden;}
+
+
 .box .down{font-weight: 600;margin-top: 4px;color:#000000;font-size: 13px;width:100%;text-align: center;overflow: hidden;border: 1px solid #848484;-moz-border-radius: 10px; /* Firefox */
     -webkit-border-radius: 10px; /* Safari 和 Chrome */
     border-radius: 10px; /* Opera 10.5+, 以及使用了IE-CSS3的IE浏览器 */height:23px;line-height: 23px;display: block }

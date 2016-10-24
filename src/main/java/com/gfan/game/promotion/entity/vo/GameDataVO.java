@@ -1,5 +1,5 @@
 /** 
- * File Name:GameDataDisplayVO.java
+ * File Name:GameDataVO.java
  * Project Name:game-promotion-xiaomi  
  * Package Name:com.gfan.game.promotion.entity.vo 
  * Create Date:2016年10月9日上午11:45:09 
@@ -16,7 +16,7 @@ import java.io.Serializable;
  * @author liangbing 
  * @version 1.0 
  */
-public class GameDataDisplayVO implements Serializable{
+public class GameDataVO implements Serializable{
 
 	private static final long serialVersionUID = 1758612228187147660L;
 	
@@ -24,23 +24,11 @@ public class GameDataDisplayVO implements Serializable{
 	private String className;//所属小类名称
 	private String icon;//图标url
 	private String gameApk;//游戏APK安装文件下载地址,根据不同渠道拼接
-	private int appId;//小米平台id
+	private int gameId;//游戏id
 	private double apkSize;//游戏APK安装文件大小，单位Mb
-	private String versionName;//当前版本号
+	private String ratingScore;//游戏评分
 	
 	
-	/**
-	 * @return the versionName
-	 */
-	public String getVersionName() {
-		return versionName;
-	}
-	/**
-	 * @param versionName the versionName to set
-	 */
-	public void setVersionName(String versionName) {
-		this.versionName = versionName;
-	}
 	/**
 	 * @return the displayName
 	 */
@@ -66,18 +54,6 @@ public class GameDataDisplayVO implements Serializable{
 		this.className = className;
 	}
 	/**
-	 * @return the appId
-	 */
-	public int getAppId() {
-		return appId;
-	}
-	/**
-	 * @param appId the appId to set
-	 */
-	public void setAppId(int appId) {
-		this.appId = appId;
-	}
-	/**
 	 * @return the icon
 	 */
 	public String getIcon() {
@@ -88,6 +64,30 @@ public class GameDataDisplayVO implements Serializable{
 	 */
 	public void setIcon(String icon) {
 		this.icon = icon;
+	}
+	/**
+	 * @return the gameApk
+	 */
+	public String getGameApk() {
+		return gameApk;
+	}
+	/**
+	 * @param gameApk the gameApk to set
+	 */
+	public void setGameApk(String gameApk) {
+		this.gameApk = gameApk;
+	}
+	/**
+	 * @return the gameId
+	 */
+	public int getGameId() {
+		return gameId;
+	}
+	/**
+	 * @param gameId the gameId to set
+	 */
+	public void setGameId(int gameId) {
+		this.gameId = gameId;
 	}
 	/**
 	 * @return the apkSize
@@ -102,28 +102,26 @@ public class GameDataDisplayVO implements Serializable{
 		this.apkSize = apkSize;
 	}
 	/**
-	 * @return the gameApk
+	 * @return the ratingScore
 	 */
-	public String getGameApk() {
-		return gameApk;
+	public String getRatingScore() {
+		return ratingScore;
 	}
 	/**
-	 * @param gameApk the gameApk to set
+	 * @param ratingScore the ratingScore to set
 	 */
-	public void setGameApk(String gameApk) {
-		this.gameApk = gameApk;
+	public void setRatingScore(String ratingScore) {
+		this.ratingScore = ratingScore;
 	}
-	
-	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "GameDataDisplayVO [displayName=" + displayName + ", className="
+		return "GameDataVO [displayName=" + displayName + ", className="
 				+ className + ", icon=" + icon + ", gameApk=" + gameApk
-				+ ", appId=" + appId + ", apkSize=" + apkSize
-				+ ", versionName=" + versionName + "]";
+				+ ", gameId=" + gameId + ", apkSize=" + apkSize
+				+ ", ratingScore=" + ratingScore + "]";
 	}
-	
+
 }

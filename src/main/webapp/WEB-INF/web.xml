@@ -10,7 +10,8 @@
 		<param-value>
 			com.gfan.game.promotion.service.QueryDataService,
 			com.gfan.game.promotion.service.ModifyDataService,
-			com.gfan.game.promotion.service.ChannelService
+			com.gfan.game.promotion.service.ChannelService,
+			com.gfan.game.promotion.service.SearchService
 		</param-value>
 		<description>this classes(only xxService) need to process SingletonInit annotation</description>
 	</context-param>
@@ -34,7 +35,7 @@
 		<listener-class>com.gfan.game.promotion.listener.WebApplicationListener</listener-class>
 	</listener>
 
-	<!-- servlet fetchData -->
+	<!-- fetchData servlet -->
 	<servlet>
 		<servlet-name>showGameDataServlet</servlet-name>
 		<servlet-class>com.gfan.game.promotion.servlets.FetchDataServlet</servlet-class>
@@ -44,7 +45,7 @@
 		<url-pattern>/fetchData.html</url-pattern>
 	</servlet-mapping>
 	
-	<!-- servelt dispatcher -->
+	<!-- dispatcher servelt  -->
 	<servlet>
 		<servlet-name>dispatcherServlet</servlet-name>
 		<servlet-class>com.gfan.game.promotion.servlets.DispatcherServlet</servlet-class>

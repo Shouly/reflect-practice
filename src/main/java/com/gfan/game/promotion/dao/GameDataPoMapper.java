@@ -11,4 +11,8 @@ public interface GameDataPoMapper {
 	int insertOrUpdateBatch(List<GameDataPo> list);
 	
 	List<GameDataPo> selectDataByPaging(int startLine,int pageSize);
+	
+	List<GameDataPo> selectBySearchContent(String searchContent,int startLine,int pageSize );
+	
+	int countBySearchContent(String content);
 }

@@ -9,7 +9,9 @@ package com.gfan.game.promotion.servlets;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -24,11 +26,13 @@ import com.gfan.game.promotion.common.Constants;
 import com.gfan.game.promotion.entity.bo.ChannelLevelEnum;
 import com.gfan.game.promotion.entity.bo.ResponseEnum;
 import com.gfan.game.promotion.entity.po.ChannelPO;
-import com.gfan.game.promotion.entity.vo.GameDataDisplayVO;
+import com.gfan.game.promotion.entity.vo.GameDataVO;
+import com.gfan.game.promotion.entity.vo.PageBean;
 import com.gfan.game.promotion.entity.vo.ResponseVO;
 import com.gfan.game.promotion.factory.BeanFactory;
 import com.gfan.game.promotion.service.ChannelService;
 import com.gfan.game.promotion.service.QueryDataService;
+import com.gfan.game.promotion.service.SearchService;
 import com.gfan.game.promotion.utils.StringUtils;
 
 /**
@@ -45,32 +49,36 @@ public class FetchDataServlet extends HttpServlet {
 	private Logger logger = LoggerFactory.getLogger(FetchDataServlet.class);
 	
 	private QueryDataService queryDataService = (QueryDataService)BeanFactory.getInstance(QueryDataService.class);
+	private SearchService searchService = (SearchService)BeanFactory.getInstance(SearchService.class);
 	private ChannelService channelService = (ChannelService)BeanFactory.getInstance(ChannelService.class);
 	
-	public void doGet(HttpServletRequest req, HttpServletResponse resp)
+	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
 		if(logger.isDebugEnabled()){
-			logger.debug("FetchDataServlet doGet...");
+			logger.debug("FetchDataServlet doPost...");
 		}
 		//json格式输出
 		resp.setContentType("application/json;charset=utf-8");
 		OutputStream out = resp.getOutputStream();
 		ResponseVO responseVO = new ResponseVO();
+		Map<String, Object> objMap = new HashMap<String, Object>(16);
 		
 		//渠道
 		String channelId = req.getParameter("channelId");
 		//分页页码
 		String pageNoStr = req.getParameter("pageNo");
+		//搜索内容
+		String searchContent = req.getParameter("searchContent");
 		
-		int pageNo = 0;
+		int pageNo = 1;
 		if(!StringUtils.isBlank(pageNoStr)){
 			pageNo = Integer.parseInt(pageNoStr);
 		}
 		
 		//channel参数为空时，取一级渠道
 		if(StringUtils.isBlank(channelId)){
-			channelId = channelService.getChannelPOByChannelLevel(ChannelLevelEnum.CHANNEL_FIR.getLevel()).getChannelId();
+			channelId = channelService.getChannelPOByChannelLevel(ChannelLevelEnum.CHANNEL_FIR_CLASS.getLevel()).getChannelId();
 		}
 		//channel参数不为空时，判断是否存在该渠道
 		ChannelPO po = channelService.getChannelPOByChannelId(channelId);
@@ -87,19 +95,44 @@ public class FetchDataServlet extends HttpServlet {
 		
 		//渠道存在，拼接渠道的下载参数
 		//查询数据
-		List<GameDataDisplayVO> voList = queryDataService.queryGameDataByPaging(pageNo);
-		//拼接下载url为渠道的下载地址,
-		for(GameDataDisplayVO vo:voList){
-			vo.setGameApk(Constants.URL_DOWNLOAD_GAME_PREFIX + "app_id=" + vo.getAppId() + "&channel=" + channelId);
+		List<GameDataVO> voList = null;
+		//数据总数
+		int totalCount = 0; 
+		//搜索 case
+		if(!StringUtils.isBlank(searchContent)){
+			//数据为搜索数据
+			voList = searchService.search(searchContent,pageNo);
+			totalCount = searchService.countBySearchContent(searchContent);
+		}else {
+			voList = queryDataService.queryGameDataByPaging(pageNo);
+			totalCount = queryDataService.countAllData();
 		}
+		//拼接下载url为渠道的下载地址,
+		if(voList != null && voList.size() > 0){
+			for(GameDataVO vo:voList){
+				vo.setGameApk(Constants.URL_DOWNLOAD_GAME_PREFIX + "app_id=" + vo.getGameId() + "&channel=" + channelId);
+			}
+		}
+		
+		//组装page vo分页信息
+		PageBean pageVO = new PageBean();
+		pageVO.setCurrentPageNo(pageNo);
+		pageVO.setTotalCount(totalCount);
+		pageVO.setPageNoCount(pageVO.initTotalPageNo());
+		
+		objMap.put("dataVo", voList);
+		objMap.put("pageVo", pageVO);
 		
 		responseVO.setCode(ResponseEnum.SUCCESS.getCode());
 		responseVO.setDesc(ResponseEnum.SUCCESS.getDesc());
-		responseVO.setObj(voList);
+		responseVO.setObj(objMap);
+		
 		String json = JSONObject.toJSONString(responseVO);
 		
+		//response out
 		out.write(json.getBytes("UTF-8"));
 		out.flush();
 		out.close();
 	}
+	
 }

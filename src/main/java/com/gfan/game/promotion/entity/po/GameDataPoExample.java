@@ -627,74 +627,74 @@ public class GameDataPoExample {
 			return (Criteria) this;
 		}
 
-		public Criteria andVersionNameIsNull() {
-			addCriterion("version_name is null");
+		public Criteria andRatingScoreIsNull() {
+			addCriterion("rating_score is null");
 			return (Criteria) this;
 		}
 
-		public Criteria andVersionNameIsNotNull() {
-			addCriterion("version_name is not null");
+		public Criteria andRatingScoreIsNotNull() {
+			addCriterion("rating_score is not null");
 			return (Criteria) this;
 		}
 
-		public Criteria andVersionNameEqualTo(String value) {
-			addCriterion("version_name =", value, "versionName");
+		public Criteria andRatingScoreEqualTo(String value) {
+			addCriterion("rating_score =", value, "ratingScore");
 			return (Criteria) this;
 		}
 
-		public Criteria andVersionNameNotEqualTo(String value) {
-			addCriterion("version_name <>", value, "versionName");
+		public Criteria andRatingScoreNotEqualTo(String value) {
+			addCriterion("rating_score <>", value, "ratingScore");
 			return (Criteria) this;
 		}
 
-		public Criteria andVersionNameGreaterThan(String value) {
-			addCriterion("version_name >", value, "versionName");
+		public Criteria andRatingScoreGreaterThan(String value) {
+			addCriterion("rating_score >", value, "ratingScore");
 			return (Criteria) this;
 		}
 
-		public Criteria andVersionNameGreaterThanOrEqualTo(String value) {
-			addCriterion("version_name >=", value, "versionName");
+		public Criteria andRatingScoreGreaterThanOrEqualTo(String value) {
+			addCriterion("rating_score >=", value, "ratingScore");
 			return (Criteria) this;
 		}
 
-		public Criteria andVersionNameLessThan(String value) {
-			addCriterion("version_name <", value, "versionName");
+		public Criteria andRatingScoreLessThan(String value) {
+			addCriterion("rating_score <", value, "ratingScore");
 			return (Criteria) this;
 		}
 
-		public Criteria andVersionNameLessThanOrEqualTo(String value) {
-			addCriterion("version_name <=", value, "versionName");
+		public Criteria andRatingScoreLessThanOrEqualTo(String value) {
+			addCriterion("rating_score <=", value, "ratingScore");
 			return (Criteria) this;
 		}
 
-		public Criteria andVersionNameLike(String value) {
-			addCriterion("version_name like", value, "versionName");
+		public Criteria andRatingScoreLike(String value) {
+			addCriterion("rating_score like", value, "ratingScore");
 			return (Criteria) this;
 		}
 
-		public Criteria andVersionNameNotLike(String value) {
-			addCriterion("version_name not like", value, "versionName");
+		public Criteria andRatingScoreNotLike(String value) {
+			addCriterion("rating_score not like", value, "ratingScore");
 			return (Criteria) this;
 		}
 
-		public Criteria andVersionNameIn(List<String> values) {
-			addCriterion("version_name in", values, "versionName");
+		public Criteria andRatingScoreIn(List<String> values) {
+			addCriterion("rating_score in", values, "ratingScore");
 			return (Criteria) this;
 		}
 
-		public Criteria andVersionNameNotIn(List<String> values) {
-			addCriterion("version_name not in", values, "versionName");
+		public Criteria andRatingScoreNotIn(List<String> values) {
+			addCriterion("rating_score not in", values, "ratingScore");
 			return (Criteria) this;
 		}
 
-		public Criteria andVersionNameBetween(String value1, String value2) {
-			addCriterion("version_name between", value1, value2, "versionName");
+		public Criteria andRatingScoreBetween(String value1, String value2) {
+			addCriterion("rating_score between", value1, value2, "ratingScore");
 			return (Criteria) this;
 		}
 
-		public Criteria andVersionNameNotBetween(String value1, String value2) {
-			addCriterion("version_name not between", value1, value2,
-					"versionName");
+		public Criteria andRatingScoreNotBetween(String value1, String value2) {
+			addCriterion("rating_score not between", value1, value2,
+					"ratingScore");
 			return (Criteria) this;
 		}
 

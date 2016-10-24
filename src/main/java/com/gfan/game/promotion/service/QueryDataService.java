@@ -20,7 +20,8 @@ import com.gfan.game.promotion.annotation.SingletonInit;
 import com.gfan.game.promotion.common.Constants;
 import com.gfan.game.promotion.dao.GameDataPoMapper;
 import com.gfan.game.promotion.entity.po.GameDataPo;
-import com.gfan.game.promotion.entity.vo.GameDataDisplayVO;
+import com.gfan.game.promotion.entity.vo.GameDataVO;
+import com.gfan.game.promotion.entity.vo.PageBean;
 import com.gfan.game.promotion.utils.MathUtils;
 
 /** 
@@ -42,14 +43,15 @@ public class QueryDataService{
 	 * @return
 	 * @version 1.0
 	 */
-	public List<GameDataDisplayVO> queryGameDataByPaging(int pageNo){
+	public List<GameDataVO> queryGameDataByPaging(int pageNo){
 		
 		SqlSession session = sqlSessionFactory.openSession();
 		GameDataPoMapper mapper = session.getMapper(GameDataPoMapper.class);
 		
-		List<GameDataPo> poList = mapper.selectDataByPaging(getOffsetAccordCurrentPage(pageNo), Constants.PAGE_SIZE);
+		List<GameDataPo> poList = mapper.selectDataByPaging(PageBean.getOffsetAccordCurrentPage(pageNo), Constants.PAGE_SIZE);
 		
-		return gameDataPoToGameDataDisplayVO(poList);
+		session.close();
+		return EntityService.gameDataPoToGameDataVO(poList);
 	}
 	
 	/**
@@ -67,38 +69,4 @@ public class QueryDataService{
 		return count;
 	}
 	
-	/**
-	 * 根据页数获取limit startLine
-	 * @param currentPage
-	 * @return
-	 * @version 1.0
-	 */
-	private int getOffsetAccordCurrentPage(int pageNo){
-		int offset = 0;
-		if(pageNo > 1){
-			offset = (pageNo-1) * Constants.PAGE_SIZE;
-		}
-		return offset;
-	}
-	
-	private List<GameDataDisplayVO> gameDataPoToGameDataDisplayVO(List<GameDataPo> poList){
-		List<GameDataDisplayVO> voList = new ArrayList<>();
-		if(poList != null && poList.size() > 0){
-			for(GameDataPo po:poList){
-				
-				GameDataDisplayVO vo = new GameDataDisplayVO();
-				
-				vo.setApkSize(MathUtils.left2Decimals(po.getApksize()));
-				vo.setAppId(po.getAppid());
-				vo.setClassName(po.getClassName());
-				vo.setDisplayName(po.getGameName());
-				vo.setGameApk(po.getApkUrl());
-				vo.setIcon(po.getIconUrl());
-				vo.setVersionName(po.getVersionName());
-				
-				voList.add(vo);
-			}
-		}
-		return voList;
-	}
 }

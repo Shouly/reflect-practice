@@ -36,7 +36,7 @@ public class Constants {
 	public static int PAGE_SIZE = 45;
 	
 	//querzt
-	public static String CRON_SCHEDULER = "";
+	public static String CRON_SCHEDULER = "0 0 2 * * ?";
 	
 	//load properties and init fields values
 	static {

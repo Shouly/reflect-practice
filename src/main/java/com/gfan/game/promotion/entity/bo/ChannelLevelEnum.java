@@ -16,8 +16,8 @@ package com.gfan.game.promotion.entity.bo;
  */
 public enum ChannelLevelEnum {
 
-	CHANNEL_FIR(new Integer(1).byteValue(),"一级渠道"),
-	CHANNEL_SEC(new Integer(2).byteValue(),"二级渠道");
+	CHANNEL_FIR_CLASS(new Integer(1).byteValue(),"一级渠道"),
+	CHANNEL_SEC_CLASS(new Integer(2).byteValue(),"二级渠道");
 	
 	private ChannelLevelEnum(Byte level,String name){
 		this.level = level;

@@ -12,7 +12,7 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import com.gfan.game.promotion.entity.vo.GameDataDisplayVO;
+import com.gfan.game.promotion.entity.vo.GameDataVO;
 import com.gfan.game.promotion.service.FetchDataService;
 import com.gfan.game.promotion.service.ReflectService;
 

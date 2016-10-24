@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 import com.gfan.game.promotion.annotation.SingletonInit;
 import com.gfan.game.promotion.dao.GameDataPoMapper;
 import com.gfan.game.promotion.entity.po.GameDataPo;
-import com.gfan.game.promotion.entity.vo.GameDataDisplayVO;
+import com.gfan.game.promotion.entity.vo.GameDataVO;
 import com.gfan.game.promotion.utils.MathUtils;
 
 /** 
@@ -49,8 +49,8 @@ public class ModifyDataService {
 		
 		//parse data
 		for(Map<String, Object> map:mapList){
-			GameDataDisplayVO vo = ReflectService.setFieldValueThatMatchKeyOfMap(map, GameDataDisplayVO.class);
-			GameDataPo po = gameDataDisplayVOTogameDataPo(vo);
+			GameDataVO vo = ReflectService.setFieldValueThatMatchKeyOfMap(map, GameDataVO.class);
+			GameDataPo po = EntityService.gameDataVOToGameDataPo(vo);
 			poList.add(po);
 		}
 		
@@ -62,7 +62,7 @@ public class ModifyDataService {
 			GameDataPoMapper mapper = session.getMapper(GameDataPoMapper.class);
 			i = mapper.insertOrUpdateBatch(poList);
 			
-			logger.info("db updated suceess:"+i);
+			logger.info("DB updated suceess:"+i);
 			
 			session.commit();
 			
@@ -79,22 +79,5 @@ public class ModifyDataService {
 		}
 		
 		return i;
-	}
-	
-	private GameDataPo gameDataDisplayVOTogameDataPo(GameDataDisplayVO vo){
-		GameDataPo po = new GameDataPo();
-		
-		//apk size 单位byte转为M
-		po.setApksize(MathUtils.left2Decimals2Float(vo.getApkSize()/1024/1024));
-		
-		po.setApkUrl(vo.getGameApk());
-		po.setAppid(vo.getAppId());
-		po.setClassName(vo.getClassName());
-		po.setGameName(vo.getDisplayName());
-		po.setIconUrl(vo.getIcon());
-		po.setUpdateTime(new Date());
-		po.setVersionName(vo.getVersionName());
-		
-		return po;
 	}
 }
