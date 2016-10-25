@@ -29,7 +29,7 @@
             <div class="b-search">
                 <div class="search">
                     <button type="button" class="btn-search"><img src=" <%=contextPath %>/images/search.png" alt="" onclick="searchData();"></button>
-                    <input id="searchInput" type="text" placeholder="皇室战争" class="b-text yy" onkeydown="javascript:if(event.keyCode==13) searchData();">
+                    <input id="searchInput" type="text" placeholder="游戏名称" class="b-text yy" onkeydown="javascript:if(event.keyCode==13) searchData();">
                 </div>
             </div>
             <p>共<a id="count" href="javascript:void(0);"></a>款游戏</p>
@@ -47,7 +47,7 @@
     <%
     	}
     %>
-    
+    <input id="contextPathInput" type="hidden" value="<%=contextPath %>">
     <div class="game">
     	<div id="dataWrapper" class="game-box clearfix">
     	</div>

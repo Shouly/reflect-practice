@@ -1,6 +1,9 @@
 /**
+ * application js
  * @author liangbing
  */
+//上下文路径
+var contextPath = $("#contextPathInput").val();
 //分页对象
 var page = {
 	currentPageNo:1,//当前页码
@@ -73,10 +76,10 @@ function pageDivListener(){
 	if(currentPageNo == 1){
 		prePageA.css("display","none");
 	}
-	if(currentPageNo < 5){
+	if(currentPageNo < 3){
 		ellipsis_first.css("display","none");
 	}
-	if(currentPageNo > page.pageNoCount - 4){
+	if(currentPageNo > page.pageNoCount - 2){
 		ellipsis_last.css("display","none");
 	}
 	if(currentPageNo == page.pageNoCount){
@@ -121,6 +124,62 @@ function formatNum(num,max){
 }
 
 /**
+ * 分页拼接II
+ * @returns {String}
+ */
+function assmbedPagingDivII(){
+	var pageDiv ="";
+	var headDiv = "<div class=\"page clearfix\">"
+				+ "<div id=\"aDiv\" class=\"page-main\">"
+				+ "<a href=\"javascript:toPage(1);\">首&nbsp;&nbsp;&nbsp;页</a>";
+	var prePageA = "<a href=\"javascript:prePage()\" class=\"cur\">上一页</a>";
+	var nextPageA = "<a href=\"javascript:nextPage()\">下一页</a>";
+	var tailDiv = "<a href=\"javascript:toPage("+page.pageNoCount+")\">尾&nbsp;&nbsp;&nbsp;页</a>"
+    			+ "</div>"
+    			+ "</div>";
+	
+	var prePageA = "<a id=\"prePageA\" href=\"javascript:prePage()\">上一页</a>";
+	var nextPageA = "<a id=\"nextPageA\" href=\"javascript:nextPage()\">下一页</a>";
+	//页码一页
+	if(page.pageNoCount == 1){
+		var pageNoA = "<a href=\"javascript:toPage(1)\" class=\"cur\">"+01+"</a>";
+		pageDiv = headDiv + pageNoA + tailDiv;
+	}
+	//页码在1到3页
+	if(page.pageNoCount > 1 && page.pageNoCount <= 3){
+		var pageNoA = "";
+		for(var i=1;i<=page.pageNoCount;i++){
+			pageNoA += "<a href=\"javascript:toPage("+i+")\">"+formatNum(i, page.pageNoCount)+"</a>";
+		}
+		pageDiv = headDiv + prePageA + pageNoA + nextPageA + tailDiv;
+	}
+	//页码为3页以上
+	if(page.pageNoCount > 3){
+		var pageA = "";
+		
+		var ellipsis_first = "<span id=\"firstSpan\">...</span>";
+		var ellipsis_last = "<span id=\"lastSpan\">...</span>";
+		
+		var pageNoA_first = "<a id=\"firstPageNoA\" href=\"javascript:toPage(1)\">"+formatNum(1, page.pageNoCount)+"</a>";
+		pageA += pageNoA_first;
+		pageA += ellipsis_first;
+		
+		var currentPageNoA = "";
+		if(page.currentPageNo != 1 && page.currentPageNo != page.pageNoCount){
+			currentPageNoA = "<a id=\"cur\" href=\"javascript:toPage("+page.currentPageNo+")\">"+formatNum(page.currentPageNo, page.pageNoCount)+"</a>";
+		}
+		pageA += currentPageNoA;
+		
+		pageA += ellipsis_last;
+		var pageNoA_last = "<a id=\"pageNoLastA\" href=\"javascript:toPage("+page.pageNoCount+")\">"+page.pageNoCount+"</a>";
+		pageA += pageNoA_last;
+		
+		pageDiv = headDiv + prePageA + pageA + nextPageA + tailDiv;
+	}
+	return pageDiv;
+}
+
+/**
  * 拼接分页html
  * @returns {String}
  */
@@ -154,8 +213,8 @@ function assmbedPagingDiv(){
 	if(page.pageNoCount > 6){
 		var pageA = "";
 		
-		var ellipsis_first = "<span id=\"firstSpan\">......</span>";
-		var ellipsis_last = "<span id=\"lastSpan\">......</span>";
+		var ellipsis_first = "<span id=\"firstSpan\">...</span>";
+		var ellipsis_last = "<span id=\"lastSpan\">...</span>";
 		
 		var pageNoA_first = "<a id=\"firstPageNoA\" href=\"javascript:toPage(1)\">"+formatNum(1, page.pageNoCount)+"</a>";
 		pageA += pageNoA_first;
@@ -197,8 +256,8 @@ function assmbedDataDiv(dataVo){
 			//拼接div
 			var data_div = "<div class=\"box\">";
 			data_div += "<img src=\""+obj.icon+"\">";
-			data_div += "<span>"+obj.displayName+"</span>";
-			data_div += "<p><a href=\"javascript:void(0)\" class='text'>"+obj.className+"</a>";
+			data_div += "<span title="+obj.displayName+">"+obj.displayName+"</span>";
+			data_div += "<p><a href=\"javascript:void(0)\" class='text' title=\""+obj.className+"\">"+obj.className+"</a>";
 			data_div += "<a href=\"javascript:void(0)\" class=\"ml-4\">"+obj.apkSize+"M</a></p>";
 			data_div += "<p>游戏评分：<a href=\"javascript:void(0)\">"+obj.ratingScore+"</a></p>";
 			data_div += "<a href=\""+obj.gameApk+"\" target=\"_blank\" class=\"down\">立即下载</a></div>";
@@ -207,9 +266,9 @@ function assmbedDataDiv(dataVo){
 			div += data_div;
 		}
 		//拼接 分页 div
-		div += assmbedPagingDiv();
+		div += assmbedPagingDivII();
 	}else{
-		div = "无数据...";
+		div = "<span style=\"color:red\">暂无数据...</span>";
 	}
 	return div;
 }
@@ -232,7 +291,7 @@ function searchData(){
  * @param param 请求参数
  */
 function fetchData(url,param){
-	$("#dataWrapper").html("loading...");
+	$("#dataWrapper").html("<div style=\"text-align:center\"><img style=\"margin-top:38px\" src=\""+contextPath+"/images/loading.gif\" /></div>");
 	$.ajax({
 		type: "POST",
 		url : url,
@@ -240,7 +299,11 @@ function fetchData(url,param){
 		dataType: "json",
 		success: function(data){
 			if(data.code != 2000){
-				alert("系统异常!");
+				if(data.desc){
+					$("#dataWrapper").html("<span style=\"color:red\">"+data.desc+"</span>");
+				}else{
+					$("#dataWrapper").html("<span style=\"color:red\">系统异常，请稍后再试！</span>");
+				}
 				return;
 			}
 			var obj = data.obj;
