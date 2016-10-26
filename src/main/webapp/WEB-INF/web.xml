@@ -55,6 +55,13 @@
 		<url-pattern>/promotion.html</url-pattern>
 	</servlet-mapping>
 	
+	<!-- init servelt  -->
+	<servlet>
+		<servlet-name>initServlet</servlet-name>
+		<servlet-class>com.gfan.game.promotion.servlets.InitServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
 	<welcome-file-list>
 		<welcome-file>promotion.html</welcome-file>
 	</welcome-file-list>
